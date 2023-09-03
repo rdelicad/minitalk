@@ -1,0 +1,94 @@
+#gcc so_long.c map.c check_map.c MLX42/libmlx42.a libft/libft.a -Iinclude -lglfw -L "/Users/rdelicad/.brew/opt/glfw/lib/" -o so_long
+#gcc so_long.c map.c check_map.c MLX42/libmlx42.a libft/libft.a -Iinclude -ldl -lglfw -pthread -lm -o so_long     ---> Linux
+
+# --- Colors ---
+
+BOLD      := \033[1m
+BLACK     := \033[30;1m
+RED       := \033[31;1m
+GREEN     := \033[32;1m
+YELLOW    := \033[33;1m
+BLUE      := \033[34;1m
+MAGENTA   := \033[35;1m
+CYAN      := \033[36;1m
+WHITE     := \033[37;1m
+RESET     := \033[0m
+
+NAME      := so_long
+NAME_BONUS:= so_long_bonus
+
+CC        := gcc
+
+CFLAGS    := -g -Wall -Wextra -Werror
+
+# --- Library ---
+
+LIB       := ar rcs
+
+LIBFT_DIR := ./libft
+LIBFT_PATH := $(LIBFT_DIR)/libft.a
+
+MLX_DIR   := ./MLX42
+MLX_PATH  := $(MLX_DIR)/libmlx42.a
+
+LIB_SYS   := -Iinclude -lglfw -L "/Users/rdelicad/.brew/opt/glfw/lib/"
+
+# --- Files ---
+
+SRCS      := leaks.c so_long.c utils_struct.c utils_read_map.c utils_check_map.c\
+			utils_flood_fill.c utils_main_game.c utils_img.c utils_draw_big_map.c\
+			utils_accion_player.c 
+
+SRCS_BONUS := leaks.c so_long_bonus.c struct_bonus.c read_map_bonus.c check_map_bonus.c\
+			flood_fill_bonus.c main_game_bonus.c img_bonus.c draw_big_map_bonus.c\
+			accion_player_bonus.c img_accion_bonus.c moves_game_bonus.c
+
+OBJS_BONUS = $(addprefix objb/,$(SRCS_BONUS:.c=.o))
+
+# --- Rules ---
+
+$(NAME): $(OBJS) $(LIBFT_PATH) $(MLX_PATH)
+	@echo "$(YELLOW)$(BOLD)Compiling so_long...$(RESET)"
+	@$(CC) $(CFLAGS) $(OBJS) $(MLX_PATH) $(LIBFT_PATH) $(LIB_SYS) -o $(NAME)
+	@echo "$(GREEN)$(BOLD)Done.$(RESET)"
+
+$(NAME_BONUS) : $(OBJS_BONUS) $(LIBFT_PATH) $(MLX_PATH)
+	@echo "$(YELLOW)$(BOLD)Compiling bonus...$(RESET)"
+	@$(CC) $(CFLAGS) $(OBJS_BONUS) $(MLX_PATH) $(LIBFT_PATH) $(LIB_SYS) -o $(NAME_BONUS)
+	@echo "$(GREEN)$(BOLD)Done.$(RESET)"
+
+$(OBJS) : obj/%.o: src/%.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJS_BONUS) : objb/%.o : srcb/%.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(LIBFT_PATH):
+	@make -s -C $(LIBFT_DIR)
+	@make bonus -s -C $(LIBFT_DIR)
+
+$(MLX_PATH):
+	@make -s -C $(MLX_DIR)
+
+all: $(NAME)
+
+bonus : $(NAME_BONUS)
+
+clean:
+	@echo "$(RED)$(BOLD)Cleaning objects from program...$(RESET)"
+	@rm -f $(OBJS) $(OBJS_BONUS)
+	@echo "$(GREEN)$(BOLD)Done.$(RESET)"
+	@make clean -s -C $(MLX_DIR)
+	@make clean -s -C $(LIBFT_DIR)
+
+fclean:
+	@echo "$(RED)$(BOLD)Cleaning all files from program...$(RESET)"
+	@rm -f $(NAME) $(NAME_BONUS) $(LIBFT_PATH) $(MLX_PATH) $(OBJS) $(OBJS_BONUS)
+	@make fclean -s -C $(MLX_DIR)
+	@make fclean -s -C $(LIBFT_DIR)
+
+re: fclean all
+
+solong: all clean
+
+.PHONY: all re fclean clean solong
