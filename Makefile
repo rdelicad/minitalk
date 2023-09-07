@@ -32,7 +32,11 @@ LIBFT_PATH	:= %(LIBFT_DIR)/libft.a
 
 SRCS		:= client.c server.c 
 
+OBJS		:= $(addprefix obj/,$(SRCS:.c=.o))
+
 # --- Rules ---
+
+$
 
 $(OBJS)		:= obj/%.o : src/%.c 
 	@$(CC) $(CFLAGS) -c $< -o $@

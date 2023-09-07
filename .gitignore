@@ -1,0 +1,18 @@
+# Objects files
+*.a
+*.obj 
+*.elf
+
+# Executables
+*.out
+
+# Debuf files
+*.dSYM
+*.su
+*.idb
+*.pdb
+
+# Special shader files
+main.c 
+test
+

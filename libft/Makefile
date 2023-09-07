@@ -14,7 +14,7 @@ FILES = ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isprint.c\
 		ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c ft_printf.c\
 		print_char.c print_hexa.c print_str.c get_next_line_bonus.c get_next_line.c\
 		get_next_line_utils.c ft_strcmp.c ft_atol.c ft_swap.c ft_lstswap.c\
-		ft_strcspn.c ft_matfree.c
+		ft_strcspn.c ft_matfree.c ft_error.c
 		
 OBJS = $(FILES:.c=.o)
 
