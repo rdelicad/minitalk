@@ -6,38 +6,28 @@
 /*   By: rdelicad <rdelicad@student.42.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 15:15:01 by rdelicad          #+#    #+#             */
-/*   Updated: 2023/09/07 16:53:26 by rdelicad         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:49:25 by rdelicad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 
-void	sigint_handler(int __attribute__((unused)) signo)
+static void	sigusr1_handler(int codigo_caracter)
 {
-	printf("Señal SIGINT recibida. Saliendo...\n");
-	exit(1);
+	char	caracter;
+
+	caracter = (char)codigo_caracter;
+	printf("Mensaje recibido del cliente: %c\n", caracter);
+	usleep(100);
 }
 
 int main()
 {
-	pid_t	pid;
-
-	pid = getpid();
-	ft_printf("Servidor a la espera con PID: %d\n", pid);
-	struct sigaction sa;
-	sa.sa_handler = sigint_handler;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;
-
-	if (sigaction(SIGINT, &sa, NULL) == -1)
-	{
-		perror("Error al configurar el manejador de señales");
-		return 1;
-	}
-	printf ("Ejecuta Ctrl + C para enviar una señal SIGINT.\n");
+	signal(SIGUSR1, sigusr1_handler);
+	ft_printf("Servidor en ejecucion (PID: %d)\n", getpid());
 	while (1)
 	{
-
+		pause();
 	}
 	return (0);
 }

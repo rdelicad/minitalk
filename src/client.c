@@ -6,29 +6,41 @@
 /*   By: rdelicad <rdelicad@student.42.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 16:32:53 by rdelicad          #+#    #+#             */
-/*   Updated: 2023/09/07 16:53:31 by rdelicad         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:42:20 by rdelicad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 
+static void    handler(int pid, const char *msn)
+{
+    int     i;
+    int     codigo;
+    char    caracter;
+    
+
+    i = 0;
+    while (msn[i] != '\0')
+    {
+        caracter = msn[i];
+        codigo = (int)caracter;
+        kill(pid, SIGUSR2 + codigo);
+        usleep(100);
+    }
+}
+
 int main(int ac, char **av)
 {
-    pid_t target_pid; /* PID del proceso objetivo */
-    int signal_to_send; // Selecciona la señal que deseas enviar.
-    
-    if (ac == 3)
+    int         pid;
+    const char  *msn;
+
+    pid = ft_atoi(av[1]);
+    msn = av[2];    
+    if (ac != 3)
     {
-        target_pid = ft_atoi(av[0]);
-        signal_to_send = SIGUSR1; 
-
-        if (kill(target_pid, signal_to_send) == -1) {
-            ft_error(2, "Error al enviar la señal");
-            return 1;
-        }
-
-        printf("Señal %d enviada al proceso con PID %d.\n", signal_to_send, target_pid);
+        ft_printf("Uso: %s <PID del servidor> <mensaje>\n", av[0]);
+        return (1);
     }
-    ft_error(2, "No se entregaron los argumentos suficientes.");
+    handler(pid, msn);
     return 0;
 }
