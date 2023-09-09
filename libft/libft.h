@@ -6,7 +6,7 @@
 /*   By: rdelicad <rdelicad@student.42.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 14:53:34 by rdelicad          #+#    #+#             */
-/*   Updated: 2023/09/07 16:41:17 by rdelicad         ###   ########.fr       */
+/*   Updated: 2023/09/09 20:12:23 by rdelicad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LIBFT_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 1024
 # endif
 
 # include <stdlib.h>
@@ -49,6 +49,7 @@ int		ft_toupper(int c);
 int		ft_tolower(int c);
 
 /* Manipulacion de cadenas */
+int		ft_str_isdigit(char *str);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
@@ -123,5 +124,6 @@ char	*get_next_line_bonus(int fd);
 /* Personalizadas */
 void	ft_matfree(char	**str);
 void	ft_error(int fd, char *msn);
+void	ft_print_bits(unsigned char octet);
 
 #endif

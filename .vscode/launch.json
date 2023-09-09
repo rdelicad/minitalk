@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "gcc - Compilar y depurar archivo activo",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/client",
+            "args": ["28264", "hola"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "gdb"
+        }
+    ]
+}

@@ -1,0 +1,46 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: gcc compilar archivo activo",
+            "command": "/usr/bin/gcc",
+            "args": 
+            [
+                "-fdiagnostics-color=always",
+                "-g",
+                "src/client.c",
+                //"srcb/*.c",
+                // "srcb/accion_player_bonus.c",
+                // "srcb/check_map_bonus.c",
+                // "srcb/flood_fill_bonus.c",
+                // "srcb/img_accion_bonus.c",
+                // "srcb/main_game_bonus.c",
+                // "srcb/moves_game_bonus.c",
+                // "srcb/read_map_bonus.c",
+                // "srcb/so_long_bonus.c",
+                // "srcb/struct_bonus.c",
+                "libft/libft.a",
+                //"MLX42/libmlx42.a",
+                //"-Iinclude",
+                //"-ldl",
+                //"-lglfw",
+                //"-pthread",
+                //"-lm",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Tarea generada por el depurador."
+        }
+    ],
+    "version": "2.0.0"
+}

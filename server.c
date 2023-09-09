@@ -5,41 +5,47 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdelicad <rdelicad@student.42.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/07 15:15:01 by rdelicad          #+#    #+#             */
-/*   Updated: 2023/09/09 17:13:18 by rdelicad         ###   ########.fr       */
+/*   Created: 2023/09/09 19:35:51 by rdelicad          #+#    #+#             */
+/*   Updated: 2023/09/09 22:18:38 by rdelicad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "libft/libft.h"
 
-
-static void sig_handler(int sig)
+void	handler_sigusr(int signum)
 {
-    static char c = 0;
-    static int bit_cont = 0;
-
-    if (sig == SIGUSR1)
-        c = c | (1 << bit_cont);
-    bit_cont++;
-
-    if (bit_cont == 8)
-    {
-        ft_printf("Mensaje recibido: %c\n", c);
-        if (c == '\0')
-            ft_printf("\n");
-        bit_cont = 0;
-        c = 0; // Reinicia la variable c para el siguiente mensaje
+	static char c = 0;
+    static int bits = 0;
+    
+    if (signum == SIGUSR1) 
+	{
+        printf("1");
+        c = (c << 1) | 0;
+    }
+    else if (signum == SIGUSR2) 
+	{
+        printf("0");
+        c = (c << 1) | 1;
+    }
+    
+    bits++;
+    
+    if (bits == 8) 
+	{
+        printf(" -> %c\n", c);
+        bits = 0;
+        c = 0;
     }
 }
 
 int	main(void)
 {
-	signal(SIGUSR1, sig_handler);
-	signal(SIGUSR2, sig_handler);
-	ft_printf("Servidor en ejecucion (PID: %d)\n", getpid());
+	pid_t	pid;
+
+	pid = getpid();
+	ft_printf("PID: %d\n", pid);
+	signal(SIGUSR1, handler_sigusr);
+	signal(SIGUSR2, handler_sigusr);
 	while (1)
-	{
 		pause();
-	}
-	return (0);
 }
