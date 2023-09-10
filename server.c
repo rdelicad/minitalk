@@ -6,7 +6,7 @@
 /*   By: rdelicad <rdelicad@student.42.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 19:35:51 by rdelicad          #+#    #+#             */
-/*   Updated: 2023/09/09 22:18:38 by rdelicad         ###   ########.fr       */
+/*   Updated: 2023/09/10 13:53:02 by rdelicad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,21 @@ void	handler_sigusr(int signum)
     
     if (signum == SIGUSR1) 
 	{
-        printf("1");
-        c = (c << 1) | 0;
+        //printf("1");
+        c = (c << 1) | 1;
     }
     else if (signum == SIGUSR2) 
 	{
-        printf("0");
-        c = (c << 1) | 1;
+        //printf("0");
+        c = (c << 1) | 0;
     }
     
     bits++;
     
     if (bits == 8) 
 	{
-        printf(" -> %c\n", c);
+        
+        write(1, &c, 1);
         bits = 0;
         c = 0;
     }
