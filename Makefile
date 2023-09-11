@@ -28,23 +28,18 @@ LIBFT_PATH	:= $(LIBFT_DIR)/libft.a
 
 LIB_SYS		:= -Iinclude
 
-# --- Files ---
-
-SRCS		:= client.c server.c 
-
-OBJS		:= $(addprefix obj/,$(SRCS:.c=.o))
-
 # --- Rules ---
 
-$(NAME_C) : $(OBJS) $(LIBFT_PATH)
+$(NAME_C) : $(LIBFT_PATH) 
 	@echo "$(YELLOW)$(BOLD)Compiling Client...$(RESET)"
-	@$(CC) $(CFLAGS) $(LIBFT_PATH) $(LIB_SYS) -o $(NAME_C) 
+	@$(CC) $(CFLAGS) $(LIBFT_PATH) $(LIB_SYS) src/client.c -o $(NAME_C) 
 	@echo "$(GREEN)$(BOLD)Done.$(RESET)"
 
-$(NAME_S) : $(OBJS) $(LIBFT_PATH)
+$(NAME_S) : $(LIBFT_PATH) 
 	@echo "$(YELLOW)$(BOLD)Compiling Server...$(RESET)"
-	@$(CC) $(CFLAGS) $(LIBFT_PATH) $(LIB_SYS) -o $(NAME_S) 
+	@$(CC) $(CFLAGS) $(LIBFT_PATH) $(LIB_SYS) src/server.c -o $(NAME_S) 
 	@echo "$(GREEN)$(BOLD)Done.$(RESET)"
+
 
 $(OBJS) : obj/%.o : src/%.c 
 	@$(CC) $(CFLAGS) -c $< -o $@
