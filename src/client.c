@@ -6,16 +6,20 @@
 /*   By: rdelicad <rdelicad@student.42.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 19:35:07 by rdelicad          #+#    #+#             */
-/*   Updated: 2023/09/10 15:19:23 by rdelicad         ###   ########.fr       */
+/*   Updated: 2023/09/11 19:53:02 by rdelicad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
+#include "../include/minitalk.h"
+
+int	g_stop = 0;
 
 void	handler(int pid, char *msn)
 {
-	int				i;
-	
+	int	i;
+
+	i = 0;
 	while (*msn != '\0')
 	{
 		i = 7;
