@@ -6,7 +6,7 @@
 /*   By: rdelicad <rdelicad@student.42.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 19:35:51 by rdelicad          #+#    #+#             */
-/*   Updated: 2023/09/11 20:30:23 by rdelicad         ###   ########.fr       */
+/*   Updated: 2023/09/12 21:10:14 by rdelicad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	handler_sigusr(int signum, siginfo_t *info, void *context)
 	static char	c = 0;
 	static int	bits = 0;
 
-	(void)context;
 	(void)info;
+	(void)context;
 	if (signum == SIGUSR1)
 	{
 		c = (c << 1) | 1;
@@ -32,8 +32,9 @@ void	handler_sigusr(int signum, siginfo_t *info, void *context)
 	}
 	bits++;
 	if (bits == 8)
-	{	
+	{
 		write(1, &c, 1);
+		//kill(info->si_pid, SIGUSR1);
 		bits = 0;
 		c = 0;
 	}
