@@ -6,11 +6,10 @@
 /*   By: rdelicad <rdelicad@student.42.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 19:35:51 by rdelicad          #+#    #+#             */
-/*   Updated: 2023/09/12 21:10:14 by rdelicad         ###   ########.fr       */
+/*   Updated: 2023/09/13 18:59:12 by rdelicad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
 #include "../include/minitalk.h"
 
 void	handler_sigusr(int signum, siginfo_t *info, void *context)
@@ -34,7 +33,7 @@ void	handler_sigusr(int signum, siginfo_t *info, void *context)
 	if (bits == 8)
 	{
 		write(1, &c, 1);
-		//kill(info->si_pid, SIGUSR1);
+		kill(info->si_pid, SIGUSR1);
 		bits = 0;
 		c = 0;
 	}
@@ -46,8 +45,9 @@ int	main(void)
 	struct sigaction	action;
 
 	pid = getpid();
-	ft_printf("PID: %d\n", pid);
+	printf("PID: %d\n", pid);
 	action.sa_sigaction = handler_sigusr;
+	//sigemptyset(&action.sa_mask);
 	action.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &action, NULL);
 	sigaction(SIGUSR2, &action, NULL);

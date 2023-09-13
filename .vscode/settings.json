@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"*.json": "jsonc",
+		"libft.h": "c",
+		"minitalk.h": "c"
+	}
+}
