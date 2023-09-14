@@ -6,7 +6,7 @@
 /*   By: rdelicad <rdelicad@student.42.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 19:35:51 by rdelicad          #+#    #+#             */
-/*   Updated: 2023/09/13 18:59:12 by rdelicad         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:25:20 by rdelicad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,10 @@ void	handler_sigusr(int signum, siginfo_t *info, void *context)
 	if (signum == SIGUSR1)
 	{
 		c = (c << 1) | 1;
-		//kill(info->si_pid, SIGUSR1);
 	}
 	else if (signum == SIGUSR2)
 	{
 		c = (c << 1) | 0;
-		//kill(info->si_pid, SIGUSR2);
 	}
 	bits++;
 	if (bits == 8)
@@ -47,8 +45,7 @@ int	main(void)
 	pid = getpid();
 	printf("PID: %d\n", pid);
 	action.sa_sigaction = handler_sigusr;
-	//sigemptyset(&action.sa_mask);
-	action.sa_flags = SA_SIGINFO;
+	action.sa_flags = SA_SIGINFO | SA_NODEFER;
 	sigaction(SIGUSR1, &action, NULL);
 	sigaction(SIGUSR2, &action, NULL);
 	while (1)
