@@ -1,16 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdelicad <rdelicad@student.42.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 19:35:07 by rdelicad          #+#    #+#             */
-/*   Updated: 2023/09/15 16:30:48 by rdelicad         ###   ########.fr       */
+/*   Updated: 2023/09/15 16:27:50 by rdelicad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minitalk.h"
+
+int	g_stop = 1;
+
+void	recibed_sig(int signum)
+{
+	if (signum == SIGUSR1)
+	{
+		printf("señal recibida.\n");
+		g_stop = 0;
+	}
+}
 
 void	handler(int pid, char *msn)
 {
@@ -22,6 +33,7 @@ void	handler(int pid, char *msn)
 		i = 7;
 		while (i >= 0)
 		{
+			g_stop = 1;
 			if (*msn & (1 << i))
 				kill(pid, SIGUSR1);
 			else
@@ -29,19 +41,20 @@ void	handler(int pid, char *msn)
 			usleep(35);
 			i--;
 		}
+		while (g_stop)
+			usleep(1);
 		msn++;
 	}
 }
 
 int	main(int ac, char **av)
 {
-	if (ac != 3 && atoi(av[1]) <= 0)
+	if (ac != 3 || atoi(av[1]) <= 0)
 	{
 		printf("Uso: %s <PID del servidor> <mensaje>\n", av[0]);
 		return (1);
 	}
+	signal(SIGUSR1, recibed_sig);
 	handler(atoi(av[1]), av[2]);
 	return (0);
 }
-/// cambiar las funciones y poner ft_...
-/// poner la funcion ft_str_isdigit
