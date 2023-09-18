@@ -6,7 +6,7 @@
 /*   By: rdelicad <rdelicad@student.42.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 19:35:07 by rdelicad          #+#    #+#             */
-/*   Updated: 2023/09/15 16:30:48 by rdelicad         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:22:24 by rdelicad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,11 @@ void	handler(int pid, char *msn)
 
 int	main(int ac, char **av)
 {
-	if (ac != 3 && atoi(av[1]) <= 0)
+	if (ac != 3 || ft_atoi(av[1]) <= 0 || ft_str_isdigit(av[2]))
 	{
-		printf("Uso: %s <PID del servidor> <mensaje>\n", av[0]);
+		ft_printf("Uso: %s <PID del servidor> <mensaje>\n", av[0]);
 		return (1);
 	}
-	handler(atoi(av[1]), av[2]);
+	handler(ft_atoi(av[1]), av[2]);
 	return (0);
 }
-/// cambiar las funciones y poner ft_...
-/// poner la funcion ft_str_isdigit

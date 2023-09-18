@@ -6,7 +6,7 @@
 /*   By: rdelicad <rdelicad@student.42.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 19:35:51 by rdelicad          #+#    #+#             */
-/*   Updated: 2023/09/15 16:17:56 by rdelicad         ###   ########.fr       */
+/*   Updated: 2023/09/18 13:03:38 by rdelicad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(void)
 	struct sigaction	action;
 
 	pid = getpid();
-	printf("PID: %d\n", pid);
+	ft_printf("PID: %d\n", pid);
 	action.sa_sigaction = handler_sigusr;
 	action.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &action, NULL);
